@@ -1,3 +1,4 @@
+import { PasswordComponent } from './password/password.component';
 import { AuthService } from './auth.service';
 import { ShoppingcartService } from './shoppingcart.service';
 import { CategoryService } from './category.service';
@@ -17,7 +18,7 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { LoginComponent } from './login/login.component';
 import { ProductsService } from './products.service';
 import { AuthGuardService } from './auth-guard.service';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,9 +27,12 @@ import { AuthGuardService } from './auth-guard.service';
     BsNavbarComponent,
     ProductsComponent,
     MyOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    PasswordComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,

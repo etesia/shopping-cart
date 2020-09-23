@@ -8,7 +8,10 @@ import * as firebase from 'firebase';
 @Injectable()
 export class AuthService {
   user: firebase.User;
+  Accuser;
+  accusername;
   returnUrl;
+  // fs = require('fs');
   constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute, private router: Router) {
     afAuth.authState.subscribe(user => {
       console.log("User's login status: ", user);
@@ -16,8 +19,9 @@ export class AuthService {
       this.user = user;
       let theReturnUrl = localStorage.getItem('theReturnUrl');
       router.navigate([theReturnUrl]);
-      localStorage.setItem('theReturnUrl', '/');
+      localStorage.setItem('theReturnUrl', '/')
     });
+
   }
 
   login() {
@@ -27,13 +31,24 @@ export class AuthService {
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
 
+  loginByAcc() {
+    this.Accuser = true;
+    console.log(this.Accuser);
+    this.returnUrl = this.route.snapshot.queryParamMap.get('theReturnUrl') || '/';
+    localStorage.setItem('theReturnUrl', this.returnUrl);
+    let theReturnUrl = localStorage.getItem('theReturnUrl');
+    this.router.navigate([theReturnUrl]);
+  }
+
 
 
   logOut() {
     this.afAuth.auth.signOut();
     this.router.navigateByUrl('/login');
+    this.Accuser = false;
     // console.log('returnUrl:', returnUrl);
     // console.log('snap:', this.route.snapshot);
+
   }
 
 
